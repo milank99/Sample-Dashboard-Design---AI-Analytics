@@ -1,0 +1,9 @@
+Name,Description,Url,Type
+GenAI Playground,Interactive sandbox for testing Gemini and other LLM prompts with temperature controls.,https://ai.internal.corp/playground,AI
+Log Sentinel,Real-time distributed log aggregation and anomaly detection dashboard.,https://analytics.internal.corp/logs,Analytics
+Vision Lab,Computer vision model training status and dataset visualization tools.,https://ai.internal.corp/vision,AI
+Traffic Pulse,Network latency and throughput monitoring for microservices.,https://analytics.internal.corp/traffic,Analytics
+Model Registry,Central repository for ML model versioning and deployment artifacts.,https://ai.internal.corp/registry,AI
+User Cohorts,Behavioral analytics and user segmentation visualization platform.,https://analytics.internal.corp/cohorts,Analytics
+Code Weaver,AI-assisted code generation and refactoring tool for internal libraries.,https://ai.internal.corp/weaver,AI
+Metric Scout,Custom metric exploration and dashboard creation tool.,https://analytics.internal.corp/scout,Analytics

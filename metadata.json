@@ -1,0 +1,5 @@
+{
+  "name": "Engineering Utility Hub",
+  "description": "A unified dashboard to access AI and Analytics engineering utilities managed via a simple CSV file.",
+  "requestFramePermissions": []
+}
