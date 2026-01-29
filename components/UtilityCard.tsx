@@ -1,96 +1,98 @@
 import React from 'react';
 import { UtilityItem } from '../types';
-import { ExternalLink, BrainCircuit, BarChart3, ChevronRight, Box } from 'lucide-react';
+import { ExternalLink, BrainCircuit, BarChart3, Box } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface UtilityCardProps {
   item: UtilityItem;
   index: number;
-  direction?: 'left' | 'right'; // For mindmap layout
 }
 
-const UtilityCard: React.FC<UtilityCardProps> = ({ item, index, direction }) => {
+const UtilityCard: React.FC<UtilityCardProps> = ({ item, index }) => {
   const isAI = item.type.toLowerCase() === 'ai';
   const isAnalytics = item.type.toLowerCase() === 'analytics';
   
-  // Theme colors based on type
-  const themeColor = isAI 
-    ? 'indigo' 
-    : isAnalytics 
-      ? 'emerald' 
-      : 'slate';
+  // High contrast light mode styles
+  const getThemeStyles = () => {
+    if (isAI) {
+      return {
+        card: 'bg-violet-50/50 border-violet-200 hover:border-violet-500 hover:bg-violet-50 shadow-[0_2px_10px_rgba(139,92,246,0.08)] hover:shadow-[0_12px_40px_rgba(139,92,246,0.12)]',
+        iconBg: 'bg-violet-600 text-white',
+        badge: 'border-violet-200 text-violet-700 bg-violet-100',
+        titleColor: 'text-violet-950',
+        descColor: 'text-violet-800/70',
+        accentColor: 'text-violet-500',
+      };
+    } else if (isAnalytics) {
+      return {
+        card: 'bg-teal-50/50 border-teal-200 hover:border-teal-500 hover:bg-teal-50 shadow-[0_2px_10px_rgba(20,184,166,0.08)] hover:shadow-[0_12px_40px_rgba(20,184,166,0.12)]',
+        iconBg: 'bg-teal-600 text-white',
+        badge: 'border-teal-200 text-teal-700 bg-teal-100',
+        titleColor: 'text-teal-950',
+        descColor: 'text-teal-800/70',
+        accentColor: 'text-teal-500',
+      };
+    } else {
+      return {
+        card: 'bg-slate-100/50 border-slate-300 hover:border-slate-500 shadow-sm hover:shadow-xl',
+        iconBg: 'bg-slate-700 text-white',
+        badge: 'border-slate-300 text-slate-700 bg-slate-200',
+        titleColor: 'text-slate-950',
+        descColor: 'text-slate-600',
+        accentColor: 'text-slate-400',
+      };
+    }
+  };
 
+  const styles = getThemeStyles();
+  
   return (
-    <div className={`relative flex items-center ${direction === 'left' ? 'flex-row' : 'flex-row-reverse'} w-full max-w-md`}>
-      
-      {/* Connector Line (Desktop Mindmap Only) */}
-      {direction && (
-        <div className={`hidden lg:block absolute top-1/2 ${direction === 'left' ? '-right-12' : '-left-12'} w-12 h-px bg-gradient-to-r ${
-           direction === 'left' 
-             ? `from-${themeColor}-500/50 to-slate-800` 
-             : `from-slate-800 to-${themeColor}-500/50`
-        }`}>
-          <div className={`absolute ${direction === 'left' ? 'right-0' : 'left-0'} top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-${themeColor}-500 shadow-[0_0_8px_rgba(var(--${themeColor}-500),0.8)]`} />
-        </div>
-      )}
-
+    <div className="relative flex w-full">
       <motion.a
         href={item.url}
         target="_blank"
         rel="noopener noreferrer"
-        initial={{ opacity: 0, x: direction === 'left' ? -20 : 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4, delay: index * 0.1 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.3, delay: index * 0.05 }}
         className={`
-          group relative flex-1 overflow-hidden rounded-xl border backdrop-blur-sm transition-all duration-300
-          hover:shadow-2xl hover:scale-[1.02] z-10
-          ${isAI 
-            ? 'bg-indigo-950/30 border-indigo-500/30 hover:border-indigo-400 hover:shadow-indigo-500/20' 
-            : isAnalytics
-              ? 'bg-emerald-950/30 border-emerald-500/30 hover:border-emerald-400 hover:shadow-emerald-500/20'
-              : 'bg-slate-900/50 border-slate-700 hover:border-slate-500'
-          }
+          group relative flex-1 overflow-hidden rounded-2xl border-2 transition-all duration-300 ease-out
+          ${styles.card}
         `}
       >
-        {/* Hover Gradient */}
-        <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br ${
-          isAI ? 'from-indigo-400 to-purple-400' : isAnalytics ? 'from-emerald-400 to-teal-400' : 'from-slate-400 to-white'
-        }`} />
-
-        <div className="relative p-5 flex flex-col h-full">
-          <div className="flex justify-between items-start mb-3">
+        <div className="relative p-6 flex flex-col h-full z-10">
+          <div className="flex justify-between items-start mb-5">
             <div className={`
-              p-2 rounded-lg bg-opacity-20 backdrop-blur-md
-              ${isAI ? 'bg-indigo-500 text-indigo-300' : isAnalytics ? 'bg-emerald-500 text-emerald-300' : 'bg-slate-700 text-slate-300'}
+              p-3 rounded-xl transition-transform duration-300 group-hover:scale-105
+              ${styles.iconBg}
             `}>
-              {isAI ? <BrainCircuit size={20} /> : isAnalytics ? <BarChart3 size={20} /> : <Box size={20} />}
+              {isAI ? <BrainCircuit size={24} /> : isAnalytics ? <BarChart3 size={24} /> : <Box size={24} />}
             </div>
             
             <div className={`
-              flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border
-              ${isAI 
-                ? 'border-indigo-500/30 text-indigo-300 bg-indigo-500/10' 
-                : isAnalytics 
-                  ? 'border-emerald-500/30 text-emerald-300 bg-emerald-500/10'
-                  : 'border-slate-500/30 text-slate-400'
-              }
+              flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border
+              ${styles.badge}
             `}>
               {item.type}
             </div>
           </div>
 
-          <h3 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300">
+          <h3 className={`text-xl font-black mb-2 tracking-tight transition-colors ${styles.titleColor}`}>
             {item.name}
           </h3>
           
-          <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2 group-hover:line-clamp-none transition-all">
+          <p className={`text-sm leading-relaxed mb-6 font-medium line-clamp-2 transition-colors ${styles.descColor}`}>
             {item.description}
           </p>
 
-          <div className="mt-auto flex justify-end">
-            <ExternalLink size={16} className={`opacity-50 group-hover:opacity-100 transition-opacity ${
-              isAI ? 'text-indigo-400' : isAnalytics ? 'text-emerald-400' : 'text-slate-400'
-            }`} />
+          <div className="mt-auto flex justify-between items-center pt-4 border-t border-black/5">
+            <span className={`text-[10px] font-black uppercase tracking-widest transition-opacity group-hover:opacity-100 opacity-60 ${styles.titleColor}`}>
+              Open Protocol
+            </span>
+            <div className={`p-1.5 rounded-full transition-colors group-hover:bg-white`}>
+              <ExternalLink size={18} className={`transition-all duration-300 ${styles.accentColor} group-hover:translate-x-0.5 group-hover:-translate-y-0.5`} />
+            </div>
           </div>
         </div>
       </motion.a>

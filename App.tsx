@@ -43,14 +43,14 @@ const App: React.FC = () => {
       } catch (err: unknown) {
         // Fallback data
         const fallbackData = `Name,Description,Url,Type
-GenAI Playground,Interactive sandbox for testing Gemini and other LLM prompts.,#,AI
-Log Sentinel,Real-time distributed log aggregation dashboard.,#,Analytics
-Vision Lab,Computer vision model training status.,#,AI
-Traffic Pulse,Network latency monitoring for microservices.,#,Analytics
-Model Registry,Central repository for ML model versioning and deployment.,#,AI
-User Cohorts,Behavioral analytics and user segmentation.,#,Analytics
-Code Weaver,AI-assisted code generation tool.,#,AI
-Metric Scout,Custom metric exploration dashboard.,#,Analytics`;
+GenAI Playground,Interactive sandbox for testing Gemini and other LLM prompts with temperature controls.,https://ai.internal.corp/playground,AI
+Log Sentinel,Real-time distributed log aggregation and anomaly detection dashboard.,https://analytics.internal.corp/logs,Analytics
+Vision Lab,Computer vision model training status and dataset visualization tools.,https://ai.internal.corp/vision,AI
+Traffic Pulse,Network latency and throughput monitoring for microservices.,https://analytics.internal.corp/traffic,Analytics
+Model Registry,Central repository for ML model versioning and deployment artifacts.,https://ai.internal.corp/registry,AI
+User Cohorts,Behavioral analytics and user segmentation visualization platform.,https://analytics.internal.corp/cohorts,Analytics
+Code Weaver,AI-assisted code generation and refactoring tool for internal libraries.,https://ai.internal.corp/weaver,AI
+Metric Scout,Custom metric exploration and dashboard creation tool.,https://analytics.internal.corp/scout,Analytics`;
         
         Papa.parse<CsvRow>(fallbackData, {
             header: true,
@@ -89,145 +89,138 @@ Metric Scout,Custom metric exploration dashboard.,#,Analytics`;
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans overflow-x-hidden selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans overflow-x-hidden selection:bg-indigo-200">
       
-      {/* Dynamic Background */}
+      {/* Light Theme Enhanced Dynamic Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-         <div className="absolute top-[-10%] left-[20%] w-[50%] h-[50%] bg-indigo-900/10 rounded-full blur-[120px] opacity-40 animate-pulse" />
-         <div className="absolute bottom-[-10%] right-[20%] w-[50%] h-[50%] bg-emerald-900/10 rounded-full blur-[120px] opacity-40 animate-pulse" style={{ animationDelay: '2s' }} />
-         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
+         <div className="absolute top-[-5%] left-[5%] w-[50%] h-[50%] bg-indigo-200/50 rounded-full blur-[120px] opacity-40 animate-pulse" />
+         <div className="absolute bottom-[-5%] right-[5%] w-[50%] h-[50%] bg-teal-200/50 rounded-full blur-[120px] opacity-40 animate-pulse" style={{ animationDelay: '3s' }} />
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-[1800px] mx-auto px-4 lg:px-8 py-8 flex flex-col min-h-screen">
+      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 lg:px-8 py-10 flex flex-col min-h-screen">
         
         {/* Top Header */}
-        <header className="flex flex-col items-center justify-center mb-12 lg:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-xs font-mono text-slate-400 mb-6 backdrop-blur-md">
+        <header className="flex flex-col items-center justify-center mb-12 pt-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-600 border border-indigo-500 shadow-lg shadow-indigo-200 text-xs font-mono text-white mb-8">
             <Terminal size={12} />
-            <span>ENGINEERING PORTAL v2.0</span>
+            <span className="tracking-widest font-bold">ENGINEERING CORE v2.5</span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-center tracking-tight mb-8">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200">AI</span>
-            <span className="mx-4 text-slate-700 font-light">&</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-200">Analytics</span>
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-center tracking-tighter mb-10 text-slate-900 leading-none">
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-700 to-indigo-500">AI</span>
+            <span className="mx-4 text-slate-300 font-light">&</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-teal-700 to-teal-500">Analytics</span>
           </h1>
 
           {/* Search Bar */}
-          <div className="w-full max-w-lg relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search className="text-slate-500 group-focus-within:text-indigo-400 transition-colors" size={20} />
+          <div className="w-full max-w-xl relative group">
+            <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+              <Search className="text-slate-400 group-focus-within:text-indigo-600 transition-colors" size={20} />
             </div>
             <input
               type="text"
-              placeholder="Filter nodes..."
-              className="w-full pl-12 pr-4 py-3 bg-slate-900/50 border border-slate-800 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 text-white placeholder-slate-600 backdrop-blur-md transition-all"
+              placeholder="Query utilities, protocols, or nodes..."
+              className="w-full pl-14 pr-6 py-4 bg-white border-2 border-slate-100 rounded-2xl shadow-xl shadow-slate-200/50 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/50 text-slate-800 placeholder-slate-400 transition-all font-medium text-lg"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </header>
 
-        {/* Mind Map Layout */}
+        {/* 2-Column Layout */}
         {loading ? (
           <div className="flex-1 flex flex-col items-center justify-center">
              <div className="relative">
-                <div className="w-16 h-16 border-t-2 border-b-2 border-indigo-500 rounded-full animate-spin"></div>
-                <div className="absolute inset-0 flex items-center justify-center text-indigo-500">
-                  <Cpu size={24} />
+                <div className="w-20 h-20 border-t-4 border-b-4 border-indigo-600 rounded-full animate-spin"></div>
+                <div className="absolute inset-0 flex items-center justify-center text-indigo-600">
+                  <Cpu size={32} />
                 </div>
              </div>
-             <p className="mt-4 text-slate-500 font-mono text-sm animate-pulse">Initializing Neural Map...</p>
+             <p className="mt-6 text-slate-500 font-mono text-xs font-bold uppercase tracking-widest animate-pulse">Establishing Node Connection...</p>
           </div>
         ) : error ? (
-           <div className="flex-1 flex flex-col items-center justify-center text-red-400">
-            <AlertCircle size={48} className="mb-4" />
-            <p className="text-lg font-medium">{error}</p>
+           <div className="flex-1 flex flex-col items-center justify-center text-red-500">
+            <AlertCircle size={64} className="mb-4 opacity-20" />
+            <p className="text-xl font-black tracking-tight uppercase">{error}</p>
           </div>
         ) : filteredItems.length === 0 ? (
-           <div className="text-center py-20 opacity-50">
-             <p className="text-slate-500 text-lg">No nodes found matching signal "{search}"</p>
+           <div className="text-center py-20 bg-white/40 rounded-3xl border-2 border-dashed border-slate-200">
+             <Search size={48} className="mx-auto text-slate-300 mb-4" />
+             <p className="text-slate-500 text-lg font-bold">No endpoints found matching "{search}"</p>
+             <button onClick={() => setSearch('')} className="mt-4 text-indigo-600 font-bold hover:underline">Clear current filters</button>
            </div>
         ) : (
-          <div className="flex-1 flex flex-col lg:flex-row relative">
+          <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start pb-20">
             
-            {/* 1. Left Branch: AI */}
-            <div className="flex-1 flex flex-col gap-6 items-center lg:items-end lg:pr-12 py-8 order-2 lg:order-1">
-              <div className="lg:hidden text-indigo-400 font-bold mb-2 flex items-center gap-2">
-                <Cpu size={16} /> AI Intelligence
+            {/* Left Column: AI */}
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center gap-3 mb-2 pb-4 border-b-2 border-indigo-100">
+                <div className="p-2 bg-indigo-100 rounded-lg text-indigo-700">
+                   <Cpu size={24} />
+                </div>
+                <h2 className="text-2xl font-black text-indigo-900 tracking-tight">AI Subsystems</h2>
+                <div className="ml-auto px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold border border-indigo-100">
+                  {aiItems.length} Nodes
+                </div>
               </div>
+              
               {aiItems.map((item, idx) => (
                 <UtilityCard 
                   key={`ai-${idx}`} 
                   item={item} 
                   index={idx} 
-                  direction="left" 
                 />
               ))}
-              {aiItems.length === 0 && <div className="text-slate-600 italic py-4">No AI modules active</div>}
+              {aiItems.length === 0 && <div className="text-slate-400 italic py-4 font-medium">No active AI modules detected</div>}
             </div>
 
-            {/* 2. Central Spine (Desktop Only) */}
-            <div className="hidden lg:flex flex-col items-center justify-start w-24 relative order-2">
-               {/* The Vertical Line */}
-               <div className="absolute top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-700 to-transparent"></div>
-               
-               {/* The Central Hub Node */}
-               <div className="sticky top-10 z-20 flex flex-col items-center">
-                  <motion.div 
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    className="w-16 h-16 rounded-full bg-slate-900 border border-slate-700 shadow-[0_0_30px_rgba(99,102,241,0.15)] flex items-center justify-center relative z-20"
-                  >
-                    <Network className="text-slate-300" size={32} />
-                    {/* Pulsing effects */}
-                    <div className="absolute inset-0 rounded-full border border-indigo-500/30 animate-ping opacity-20" />
-                  </motion.div>
-                  <div className="mt-4 px-3 py-1 rounded bg-slate-900/80 border border-slate-800 text-[10px] text-slate-500 font-mono tracking-widest backdrop-blur uppercase">
-                    Core
-                  </div>
-               </div>
-            </div>
-
-            {/* 3. Right Branch: Analytics */}
-            <div className="flex-1 flex flex-col gap-6 items-center lg:items-start lg:pl-12 py-8 order-3 lg:order-3">
-              <div className="lg:hidden text-emerald-400 font-bold mb-2 mt-8 flex items-center gap-2">
-                <Network size={16} /> Analytics & Obs
+            {/* Right Column: Analytics */}
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center gap-3 mb-2 pb-4 border-b-2 border-teal-100">
+                <div className="p-2 bg-teal-100 rounded-lg text-teal-700">
+                   <Network size={24} />
+                </div>
+                <h2 className="text-2xl font-black text-teal-900 tracking-tight">Analytics & Ops</h2>
+                <div className="ml-auto px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-xs font-bold border border-teal-100">
+                  {analyticsItems.length} Nodes
+                </div>
               </div>
+
               {analyticsItems.map((item, idx) => (
                 <UtilityCard 
                   key={`analytics-${idx}`} 
                   item={item} 
                   index={idx} 
-                  direction="right" 
                 />
               ))}
-               {analyticsItems.length === 0 && <div className="text-slate-600 italic py-4">No Analytics modules active</div>}
+               {analyticsItems.length === 0 && <div className="text-slate-400 italic py-4 font-medium">No observation nodes detected</div>}
             </div>
             
           </div>
         )}
 
-        {/* Other Items Section (Bottom Center) */}
+        {/* Other Items Section */}
         {otherItems.length > 0 && !loading && (
-          <div className="mt-12 flex flex-col items-center border-t border-slate-800/50 pt-12">
-            <h3 className="text-slate-500 text-sm font-mono uppercase tracking-widest mb-6">Additional Resources</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
+          <div className="flex flex-col items-center border-t-2 border-slate-200 pt-16">
+            <h3 className="text-slate-900 text-sm font-black uppercase tracking-[0.2em] mb-12 bg-slate-200 px-6 py-2 rounded-full">Auxiliary Resources</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl px-4">
               {otherItems.map((item, idx) => (
                 <UtilityCard 
                    key={`other-${idx}`} 
                    item={item} 
                    index={idx}
-                   // No direction prop implies standard card
                 />
               ))}
             </div>
           </div>
         )}
 
-        <footer className="mt-auto pt-16 pb-6 text-center text-slate-700 text-xs font-mono">
-          <p>ENGINEERING UTILITY HUB • {new Date().getFullYear()} • INTERNAL USE ONLY</p>
+        <footer className="mt-auto pt-16 pb-10 text-center flex flex-col items-center">
+          <div className="h-1 w-20 bg-slate-200 rounded-full mb-6"></div>
+          <p className="text-slate-400 text-[10px] font-mono font-bold tracking-[0.3em] uppercase">
+            EST. 2024 • ENGR_PORTAL_SYSTEM • ENCRYPTED_CHANNEL_42
+          </p>
         </footer>
       </div>
     </div>
